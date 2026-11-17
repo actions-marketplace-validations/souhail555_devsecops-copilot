@@ -18,6 +18,18 @@ DB_PASSWORD = os.environ.get("DB_PASSWORD")
 HOSTNAME_RE = re.compile(r"^(?=.{1,253}$)[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$")
 
 
+@app.route("/")
+def index():
+    return (
+        "<h1>DevSecOps Copilot demo app</h1><ul>"
+        '<li><a href="/user?id=1">/user?id=1</a></li>'
+        '<li><a href="/user?id=1%20OR%201=1">/user?id=1 OR 1=1</a> (SQL injection, blocked)</li>'
+        '<li><a href="/ping?host=127.0.0.1">/ping?host=127.0.0.1</a></li>'
+        '<li><a href="/ping?host=x;whoami">/ping?host=x;whoami</a> (command injection, blocked)</li>'
+        "</ul>"
+    )
+
+
 @app.route("/user")
 def user():
     uid = request.args.get("id")
@@ -46,7 +58,7 @@ def ping():
     if not _valid_host(host):
         abort(400, "invalid host")
     # Argument list, no shell: the host can't inject extra commands.
-    result = subprocess.run(["ping", "-c", "1", host], capture_output=True, text=True, timeout=10)
+    result = subprocess.run(["ping", "-n" if os.name == "nt" else "-c", "1", host], capture_output=True, text=True, timeout=10)
     return result.stdout
 
 
