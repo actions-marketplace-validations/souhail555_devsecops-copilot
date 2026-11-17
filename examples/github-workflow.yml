@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Security & compliance scan
         id: copilot
-        uses: YOUR-ORG/devsecops-copilot@v0.1.0
+        uses: souhail555/devsecops-copilot@v0.1.0
         with:
           fail-on: high
         continue-on-error: true

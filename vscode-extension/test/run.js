@@ -38,7 +38,7 @@ const vscode = {
     showErrorMessage: async (m) => { throw new Error("extension error: " + m); },
   },
   workspace: {
-    workspaceFolders: [{ uri: { fsPath: path.resolve(__dirname, "..", "..", "examples", "vulnerable-app") } }],
+    workspaceFolders: [{ uri: { fsPath: path.resolve(__dirname, "fixtures", "vulnerable-app") } }],
     getConfiguration: () => ({ get: (k) => settings[k], update: async (k, v) => { settings[k] = v; } }),
     onDidSaveTextDocument: () => ({ dispose() {} }), onDidChangeConfiguration: () => ({ dispose() {} }),
   },

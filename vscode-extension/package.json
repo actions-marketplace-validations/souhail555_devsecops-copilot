@@ -3,8 +3,13 @@
   "displayName": "DevSecOps Copilot",
   "description": "Inline code security findings mapped to GCC (NCA ECC) and EU (CRA, NIS2, DORA, GDPR) compliance controls — Arabic & English.",
   "version": "0.1.0",
-  "publisher": "devsecops-copilot",
+  "publisher": "souhail555",
+  "repository": { "type": "git", "url": "https://github.com/souhail555/devsecops-copilot" },
+  "homepage": "https://github.com/souhail555/devsecops-copilot#readme",
+  "bugs": { "url": "https://github.com/souhail555/devsecops-copilot/issues" },
   "license": "UNLICENSED",
+  "icon": "images/icon.png",
+  "galleryBanner": { "color": "#1f6f3a", "theme": "dark" },
   "engines": { "vscode": "^1.85.0" },
   "categories": ["Linters", "Other"],
   "keywords": ["security", "compliance", "NCA", "CRA", "NIS2", "DORA", "GDPR", "SBOM", "arabic"],
@@ -51,6 +56,6 @@
   "scripts": {
     "bundle-engine": "node scripts/bundle-engine.js",
     "test": "node test/run.js",
-    "package": "npm run bundle-engine && npx @vscode/vsce@3.2.1 package"
+    "package": "npm run bundle-engine && npx @vscode/vsce@3.2.1 package --skip-license"
   }
 }

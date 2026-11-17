@@ -1,5 +1,8 @@
-FROM python:latest
+FROM python:3.12.8-slim
 WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-RUN pip install -r requirements.txt
+RUN useradd --create-home --uid 10001 appuser
+USER appuser
 CMD ["python", "app.py"]

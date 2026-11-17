@@ -1,5 +1,9 @@
 # DevSecOps Copilot · v0.1.0 (MVP)
 
+[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-DevSecOps%20Copilot-2ea44f?logo=github)](https://github.com/marketplace/actions/devsecops-copilot)
+[![Release](https://img.shields.io/github/v/release/souhail555/devsecops-copilot)](https://github.com/souhail555/devsecops-copilot/releases/latest)
+[![DevSecOps Copilot](https://github.com/souhail555/devsecops-copilot/actions/workflows/devsecops-copilot.yml/badge.svg)](https://github.com/souhail555/devsecops-copilot/actions/workflows/devsecops-copilot.yml)
+
 منصة فحص أمني للكود تربط كل ثغرة مباشرة بالضوابط التنظيمية في **الخليج** و**أوروبا**، وتُخرج تقرير امتثال ثنائي اللغة (عربي/إنجليزي) جاهزاً للمراجعة.
 
 Code security scanner that maps every finding to **GCC** and **EU** regulatory controls and produces a bilingual, audit-oriented report.
@@ -45,8 +49,9 @@ See [examples/github-workflow.yml](examples/github-workflow.yml).
 
 ## Demo
 ```bash
-python -m copilot scan examples/vulnerable-app --out examples/sample-report
+python -m copilot scan vscode-extension/test/fixtures/vulnerable-app --out examples/sample-report
 ```
+`examples/vulnerable-app` is the fixed version of the same app (0 findings); the intentionally vulnerable original lives in `vscode-extension/test/fixtures/vulnerable-app`.
 
 ## Roadmap
 1. AI layer (Claude): شرح سياقي بالعربية + اقتراح patch تلقائي في الـ Pull Request

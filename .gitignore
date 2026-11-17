@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+copilot-report/
+.qodo/
+
+# VS Code extension build outputs
+vscode-extension/python/
+vscode-extension/*.vsix
+vscode-extension/node_modules/
