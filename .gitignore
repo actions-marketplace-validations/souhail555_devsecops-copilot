@@ -7,3 +7,4 @@ copilot-report/
 vscode-extension/python/
 vscode-extension/*.vsix
 vscode-extension/node_modules/
+*.db

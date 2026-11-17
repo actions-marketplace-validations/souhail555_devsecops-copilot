@@ -53,7 +53,10 @@ def ping():
 @app.route("/load", methods=["POST"])
 def load():
     # JSON only carries data; pickle can execute code on load.
-    return str(json.loads(request.data))
+    try:
+        return str(json.loads(request.get_data()))
+    except ValueError:
+        abort(400, "invalid JSON")
 
 
 def hash_password(pw, salt=None):
@@ -66,5 +69,12 @@ def fetch_partner():
     return requests.get("https://partner.example.com/api", timeout=10).json()
 
 
+def init_db():
+    with sqlite3.connect("app.db") as conn:
+        conn.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)")
+        conn.execute("INSERT OR IGNORE INTO users (id, name) VALUES (1, 'demo')")
+
+
 if __name__ == "__main__":
+    init_db()
     app.run(host="127.0.0.1", debug=os.environ.get("FLASK_DEBUG") == "1")
