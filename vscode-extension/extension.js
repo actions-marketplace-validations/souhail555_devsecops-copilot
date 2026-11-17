@@ -36,7 +36,7 @@ function resolveEngine(extPath) {
 }
 
 function outDirFor(root) {
-  const h = crypto.createHash("sha1").update(root).digest("hex").slice(0, 10);
+  const h = crypto.createHash("sha256").update(root).digest("hex").slice(0, 10);
   return path.join(os.tmpdir(), "devsecops-copilot", h);
 }
 
