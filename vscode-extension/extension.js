@@ -22,6 +22,9 @@ const HASH_COMMENT = new Set(["python", "yaml", "shellscript", "dockerfile", "ru
 let diagnostics, statusItem, output;
 let state = { root: null, outDir: null, findings: [], frameworks: {}, running: false };
 let saveTimer = null;
+let rescanPending = false;
+// Changes inside these folders never affect findings (git internals, caches, bundled engine).
+const IGNORED_DIRS = /[\\/](\.git|node_modules|__pycache__|\.venv|venv)[\\/]/;
 
 // ---------------------------------------------------------------- helpers
 function cfg() { return vscode.workspace.getConfiguration("devsecopsCopilot"); }
@@ -159,7 +162,11 @@ async function scan(context, { silent = false } = {}) {
     if (!silent) vscode.window.showWarningMessage(tr("افتح مجلد مشروع أولاً.", "Open a project folder first."));
     return;
   }
-  if (state.running) return;
+  if (state.running) {
+    // Files changed mid-scan: run once more when this scan ends so results aren't stale.
+    rescanPending = true;
+    return;
+  }
   state.running = true;
   updateStatus();
   try {
@@ -181,6 +188,17 @@ async function scan(context, { silent = false } = {}) {
     vscode.window.showErrorMessage(`${SOURCE}: ${e.message.split("\n")[0]}`, tr("عرض السجل", "Show log"))
       .then((p) => p && output.show());
   }
+  if (rescanPending) {
+    rescanPending = false;
+    scan(context, { silent: true });
+  }
+}
+
+/** Debounced background scan, shared by save and on-disk file change events. */
+function scheduleScan(context) {
+  if (!cfg().get("scanOnSave")) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => scan(context, { silent: true }), 800);
 }
 
 // ---------------------------------------------------------------- report view
@@ -215,7 +233,7 @@ const hoverProvider = {
 };
 
 const codeActionProvider = {
-  provideCodeActions(doc, range, ctx) {
+  provideCodeActions(doc, _range, ctx) {
     const actions = [];
     for (const d of ctx.diagnostics.filter((x) => x.source === SOURCE)) {
       const line = doc.lineAt(d.range.start.line);
@@ -256,11 +274,7 @@ function activate(context) {
     vscode.languages.registerHoverProvider({ scheme: "file" }, hoverProvider),
     vscode.languages.registerCodeActionsProvider({ scheme: "file" }, codeActionProvider,
       { providedCodeActionKinds: [vscode.CodeActionKind.QuickFix] }),
-    vscode.workspace.onDidSaveTextDocument(() => {
-      if (!cfg().get("scanOnSave")) return;
-      clearTimeout(saveTimer);
-      saveTimer = setTimeout(() => scan(context, { silent: true }), 800);
-    }),
+    vscode.workspace.onDidSaveTextDocument(() => scheduleScan(context)),
     vscode.workspace.onDidChangeConfiguration((e) => {
       if (e.affectsConfiguration("devsecopsCopilot.language") ||
           e.affectsConfiguration("devsecopsCopilot.minimumSeverity")) {
@@ -270,6 +284,12 @@ function activate(context) {
       if (e.affectsConfiguration("devsecopsCopilot.frameworks")) scan(context, { silent: true });
     }),
   );
+
+  // Files edited outside the editor (git pull, other tools) don't fire save events.
+  const watcher = vscode.workspace.createFileSystemWatcher("**/*");
+  const onDisk = (uri) => { if (!IGNORED_DIRS.test(uri.fsPath)) scheduleScan(context); };
+  context.subscriptions.push(watcher, watcher.onDidChange(onDisk), watcher.onDidCreate(onDisk),
+    watcher.onDidDelete(onDisk));
 
   scan(context, { silent: true });
 }

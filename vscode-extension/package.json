@@ -2,7 +2,7 @@
   "name": "devsecops-copilot",
   "displayName": "DevSecOps Copilot",
   "description": "Inline code security findings mapped to GCC (NCA ECC) and EU (CRA, NIS2, DORA, GDPR) compliance controls — Arabic & English.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "souhail555",
   "repository": { "type": "git", "url": "https://github.com/souhail555/devsecops-copilot" },
   "homepage": "https://github.com/souhail555/devsecops-copilot#readme",

@@ -41,6 +41,10 @@ const vscode = {
     workspaceFolders: [{ uri: { fsPath: path.resolve(__dirname, "fixtures", "vulnerable-app") } }],
     getConfiguration: () => ({ get: (k) => settings[k], update: async (k, v) => { settings[k] = v; } }),
     onDidSaveTextDocument: () => ({ dispose() {} }), onDidChangeConfiguration: () => ({ dispose() {} }),
+    createFileSystemWatcher: () => ({
+      onDidChange: () => ({ dispose() {} }), onDidCreate: () => ({ dispose() {} }),
+      onDidDelete: () => ({ dispose() {} }), dispose() {},
+    }),
   },
   commands: { registerCommand: (id, fn) => { commands[id] = fn; return { dispose() {} }; } },
 };
