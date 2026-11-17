@@ -1,0 +1,184 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Compliance Report · vulnerable-app</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#14181f;--muted:#5b6472;--line:#e3e6eb;--accent:#0f766e;
+--crit:#b42318;--high:#c2410c;--med:#a16207;--low:#475569;--ok:#15803d;--code:#f1f3f5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1116;--card:#161b22;--ink:#e6e9ee;
+--muted:#9aa4b2;--line:#2a313b;--accent:#2dd4bf;--crit:#f87171;--high:#fb923c;--med:#facc15;--low:#94a3b8;--ok:#4ade80;--code:#0b0e13}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.6 "Segoe UI",Tahoma,"Noto Sans Arabic",system-ui,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px 64px}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+h1{margin:0;font-size:24px}h2{font-size:18px;margin:32px 0 12px}.muted{color:var(--muted);font-size:13px}
+button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.num{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+.crit,.critical{color:var(--crit)}.high{color:var(--high)}.med,.medium{color:var(--med)}.low{color:var(--low)}.ok{color:var(--ok)}
+.fw{margin-bottom:12px}.fw summary{cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;list-style:none}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:6px;width:180px;max-width:40vw}
+.bar i{display:block;height:100%;background:var(--accent)}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+th,td{text-align:start;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid currentColor}
+.finding{border-inline-start:4px solid var(--line)}.finding.s-critical{border-inline-start-color:var(--crit)}
+.finding.s-high{border-inline-start-color:var(--high)}.finding.s-medium{border-inline-start-color:var(--med)}
+.finding.s-low{border-inline-start-color:var(--low)}
+.finding h3{margin:0 0 4px;font-size:16px}code,pre{font-family:Consolas,"Cascadia Code",monospace;direction:ltr;text-align:left}
+pre{background:var(--code);padding:10px;border-radius:8px;overflow-x:auto;font-size:13px;margin:8px 0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.tag{font-size:12px;background:var(--code);padding:2px 8px;border-radius:6px}
+.list{display:flex;flex-direction:column;gap:12px}
+html[lang=ar] .l-en,html[lang=en] .l-ar{display:none}
+.note{font-size:13px;color:var(--muted);border:1px dashed var(--line);padding:12px;border-radius:8px;margin-top:32px}
+</style></head><body><div class="wrap">
+<header><div><h1><span class="l-ar">تقرير الأمن والامتثال</span><span class="l-en">Security &amp; Compliance Report</span></h1>
+<div class="muted">vulnerable-app · 2026-11-17 07:26 UTC · 5 <span class="l-ar">ملف</span><span class="l-en">files</span> · 5 <span class="l-ar">مكوّن</span><span class="l-en">components</span> · DevSecOps Copilot v0.1.0</div></div>
+<button onclick="toggleLang()">English / العربية</button></header>
+<div class="grid"><div class="card"><div class="num crit">1</div><span class="l-ar">حرجة</span><span class="l-en">Critical</span></div><div class="card"><div class="num high">6</div><span class="l-ar">عالية</span><span class="l-en">High</span></div><div class="card"><div class="num med">5</div><span class="l-ar">متوسطة</span><span class="l-en">Medium</span></div><div class="card"><div class="num low">4</div><span class="l-ar">منخفضة</span><span class="l-en">Low</span></div><div class="card"><div class="num">16</div><span class="l-ar">إجمالي الملاحظات</span><span class="l-en">Total findings</span></div></div>
+<h2><span class="l-ar">جاهزية الامتثال حسب الإطار التنظيمي</span><span class="l-en">Compliance readiness by framework</span></h2>
+
+<details class="card fw" open><summary><div><strong><span class="l-ar">الضوابط الأساسية للأمن السيبراني (NCA ECC) - السعودية</span><span class="l-en">NCA Essential Cybersecurity Controls (ECC) - KSA</span></strong>
+<div class="muted">GCC</div></div><div style="text-align:end"><span class="num">0%</span>
+<div class="bar"><i style="width:0%"></i></div></div></summary>
+<table><thead><tr><th><span class="l-ar">الضابط</span><span class="l-en">Control</span></th><th><span class="l-ar">الوصف</span><span class="l-en">Description</span></th><th><span class="l-ar">الحالة</span><span class="l-en">Status</span></th></tr></thead>
+<tbody><tr><td><code>1-6</code></td><td><span class="l-ar">الأمن السيبراني ضمن إدارة مشاريع تقنية المعلومات (التطوير الآمن)</span><span class="l-en">Cybersecurity in IT projects (secure development)</span></td><td><span class="pill critical"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (8)</span></td></tr><tr><td><code>2-2</code></td><td><span class="l-ar">إدارة هويات الدخول والصلاحيات</span><span class="l-en">Identity and access management</span></td><td><span class="pill critical"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (3)</span></td></tr><tr><td><code>2-3</code></td><td><span class="l-ar">حماية الأنظمة وأجهزة معالجة المعلومات</span><span class="l-en">Information system and processing facilities protection</span></td><td><span class="pill medium"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (4)</span></td></tr><tr><td><code>2-7</code></td><td><span class="l-ar">حماية البيانات والمعلومات</span><span class="l-en">Data and information protection</span></td><td><span class="pill critical"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (4)</span></td></tr><tr><td><code>2-8</code></td><td><span class="l-ar">التشفير</span><span class="l-en">Cryptography</span></td><td><span class="pill high"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (2)</span></td></tr><tr><td><code>2-10</code></td><td><span class="l-ar">إدارة الثغرات</span><span class="l-en">Vulnerabilities management</span></td><td><span class="pill low"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (3)</span></td></tr><tr><td><code>2-15</code></td><td><span class="l-ar">أمن تطبيقات الويب</span><span class="l-en">Web application security</span></td><td><span class="pill high"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (4)</span></td></tr><tr><td><code>4-1</code></td><td><span class="l-ar">الأمن السيبراني المتعلق بالأطراف الخارجية</span><span class="l-en">Third-party cybersecurity</span></td><td><span class="pill low"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (3)</span></td></tr></tbody></table></details>
+<details class="card fw" open><summary><div><strong><span class="l-ar">قانون المرونة السيبرانية الأوروبي (CRA)</span><span class="l-en">EU Cyber Resilience Act (Regulation (EU) 2024/2847)</span></strong>
+<div class="muted">EU</div></div><div style="text-align:end"><span class="num">0%</span>
+<div class="bar"><i style="width:0%"></i></div></div></summary>
+<table><thead><tr><th><span class="l-ar">الضابط</span><span class="l-en">Control</span></th><th><span class="l-ar">الوصف</span><span class="l-en">Description</span></th><th><span class="l-ar">الحالة</span><span class="l-en">Status</span></th></tr></thead>
+<tbody><tr><td><code>AnnexI-I(2)(a)</code></td><td><span class="l-ar">خلو المنتج من ثغرات معروفة قابلة للاستغلال</span><span class="l-en">No known exploitable vulnerabilities</span></td><td><span class="pill high"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (4)</span></td></tr><tr><td><code>AnnexI-I(2)(b)</code></td><td><span class="l-ar">إعدادات آمنة افتراضياً</span><span class="l-en">Secure by default configuration</span></td><td><span class="pill medium"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (4)</span></td></tr><tr><td><code>AnnexI-I(2)(d)</code></td><td><span class="l-ar">الحماية من الوصول غير المصرّح به</span><span class="l-en">Protection from unauthorised access</span></td><td><span class="pill critical"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (3)</span></td></tr><tr><td><code>AnnexI-I(2)(e)</code></td><td><span class="l-ar">سرية البيانات (التشفير)</span><span class="l-en">Confidentiality of data (encryption)</span></td><td><span class="pill critical"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (5)</span></td></tr><tr><td><code>AnnexI-I(2)(f)</code></td><td><span class="l-ar">سلامة البيانات والأوامر والبرامج</span><span class="l-en">Integrity of data, commands and programs</span></td><td><span class="pill high"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (5)</span></td></tr><tr><td><code>AnnexI-I(2)(j)</code></td><td><span class="l-ar">تقليل سطح الهجوم</span><span class="l-en">Limit attack surfaces</span></td><td><span class="pill medium"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (4)</span></td></tr><tr><td><code>AnnexI-II(1)</code></td><td><span class="l-ar">توثيق المكونات بما فيها قائمة المكونات البرمجية (SBOM)</span><span class="l-en">Identify components, including an SBOM</span> <span class="tag">📎 sbom.cdx.json</span></td><td><span class="pill low"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (3)</span></td></tr><tr><td><code>Art.13(5)</code></td><td><span class="l-ar">العناية الواجبة تجاه مكونات الأطراف الخارجية</span><span class="l-en">Due diligence on third-party components</span></td><td><span class="pill low"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (3)</span></td></tr></tbody></table></details>
+<details class="card fw"><summary><div><strong><span class="l-ar">توجيه NIS2 الأوروبي</span><span class="l-en">EU NIS2 Directive (2022/2555)</span></strong>
+<div class="muted">EU</div></div><div style="text-align:end"><span class="num">0%</span>
+<div class="bar"><i style="width:0%"></i></div></div></summary>
+<table><thead><tr><th><span class="l-ar">الضابط</span><span class="l-en">Control</span></th><th><span class="l-ar">الوصف</span><span class="l-en">Description</span></th><th><span class="l-ar">الحالة</span><span class="l-en">Status</span></th></tr></thead>
+<tbody><tr><td><code>Art.21(2)(d)</code></td><td><span class="l-ar">أمن سلسلة التوريد</span><span class="l-en">Supply chain security</span></td><td><span class="pill low"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (3)</span></td></tr><tr><td><code>Art.21(2)(e)</code></td><td><span class="l-ar">الأمن في التطوير والصيانة ومعالجة الثغرات</span><span class="l-en">Security in development and maintenance, vulnerability handling</span></td><td><span class="pill critical"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (11)</span></td></tr><tr><td><code>Art.21(2)(h)</code></td><td><span class="l-ar">التشفير</span><span class="l-en">Cryptography and encryption</span></td><td><span class="pill high"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (2)</span></td></tr><tr><td><code>Art.21(2)(i)</code></td><td><span class="l-ar">سياسات التحكم في الوصول</span><span class="l-en">Access control policies</span></td><td><span class="pill critical"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (3)</span></td></tr></tbody></table></details>
+<details class="card fw"><summary><div><strong><span class="l-ar">قانون المرونة التشغيلية الرقمية DORA (القطاع المالي)</span><span class="l-en">EU Digital Operational Resilience Act (2022/2554) - financial sector</span></strong>
+<div class="muted">EU</div></div><div style="text-align:end"><span class="num">0%</span>
+<div class="bar"><i style="width:0%"></i></div></div></summary>
+<table><thead><tr><th><span class="l-ar">الضابط</span><span class="l-en">Control</span></th><th><span class="l-ar">الوصف</span><span class="l-en">Description</span></th><th><span class="l-ar">الحالة</span><span class="l-en">Status</span></th></tr></thead>
+<tbody><tr><td><code>Art.9</code></td><td><span class="l-ar">الحماية والوقاية في أنظمة تقنية المعلومات والاتصالات</span><span class="l-en">ICT protection and prevention</span></td><td><span class="pill critical"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (12)</span></td></tr><tr><td><code>Art.28</code></td><td><span class="l-ar">مخاطر مزوّدي الخدمات التقنية من الأطراف الخارجية</span><span class="l-en">ICT third-party risk</span></td><td><span class="pill low"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (3)</span></td></tr></tbody></table></details>
+<details class="card fw"><summary><div><strong><span class="l-ar">اللائحة العامة لحماية البيانات GDPR</span><span class="l-en">EU GDPR</span></strong>
+<div class="muted">EU</div></div><div style="text-align:end"><span class="num">0%</span>
+<div class="bar"><i style="width:0%"></i></div></div></summary>
+<table><thead><tr><th><span class="l-ar">الضابط</span><span class="l-en">Control</span></th><th><span class="l-ar">الوصف</span><span class="l-en">Description</span></th><th><span class="l-ar">الحالة</span><span class="l-en">Status</span></th></tr></thead>
+<tbody><tr><td><code>Art.25</code></td><td><span class="l-ar">حماية البيانات منذ التصميم وبشكل افتراضي</span><span class="l-en">Data protection by design and by default</span></td><td><span class="pill medium"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (2)</span></td></tr><tr><td><code>Art.32</code></td><td><span class="l-ar">أمن معالجة البيانات</span><span class="l-en">Security of processing</span></td><td><span class="pill critical"><span class="l-ar">تحتاج معالجة</span><span class="l-en">Action needed</span> (8)</span></td></tr></tbody></table></details>
+<h2><span class="l-ar">الملاحظات التفصيلية</span><span class="l-en">Detailed findings</span></h2>
+<div class="list">
+<div class="card finding s-critical"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">مفتاح وصول AWS مكشوف في الكود</span><span class="l-en">AWS access key committed to source</span></h3><span class="pill critical"><span class="l-ar">حرجة</span><span class="l-en">Critical</span> · SEC001</span></div>
+<div class="muted"><code>app.py:11</code></div>
+<pre>AWS_ACCESS_KEY_ID = &quot;AKIA********&quot;          # fake example key</pre>
+<div><span class="l-ar">تم العثور على مفتاح وصول AWS. أي شخص يملك صلاحية قراءة المستودع يستطيع استخدامه للوصول إلى حسابك السحابي.</span><span class="l-en">An AWS access key ID was found. Anyone with repo access can use it to reach your cloud account.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">ألغِ المفتاح فوراً من AWS IAM، وانقله إلى مدير أسرار (AWS Secrets Manager أو Vault)، واقرأه من متغير بيئة.</span><span class="l-en">Revoke the key in AWS IAM immediately, move it to a secrets manager (AWS Secrets Manager / Vault) and read it from an environment variable.</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-2</span><span class="tag">NCA_ECC 2-7</span><span class="tag">NCA_ECC 1-6</span><span class="tag">CRA AnnexI-I(2)(d)</span><span class="tag">CRA AnnexI-I(2)(e)</span><span class="tag">NIS2 Art.21(2)(i)</span><span class="tag">NIS2 Art.21(2)(e)</span><span class="tag">DORA Art.9</span><span class="tag">GDPR Art.32</span></div></div>
+<div class="card finding s-high"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">مفتاح API أو رمز وصول مكتوب مباشرة في الكود</span><span class="l-en">Hardcoded API key / token</span></h3><span class="pill high"><span class="l-ar">عالية</span><span class="l-en">High</span> · SEC003</span></div>
+<div class="muted"><code>app.py:12</code></div>
+<pre>API_KEY = &quot;demo********&quot;</pre>
+<div><span class="l-ar">قيمة تشبه بيانات اعتماد مكتوبة بشكل ثابت داخل الكود المصدري.</span><span class="l-en">A credential-like value is hardcoded in the source.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">حمّل الأسرار من متغيرات البيئة أو مدير أسرار، واستبدل القيمة المكشوفة.</span><span class="l-en">Load secrets from environment variables or a secrets manager; rotate the exposed value.</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-2</span><span class="tag">NCA_ECC 2-7</span><span class="tag">NCA_ECC 1-6</span><span class="tag">CRA AnnexI-I(2)(d)</span><span class="tag">CRA AnnexI-I(2)(e)</span><span class="tag">NIS2 Art.21(2)(i)</span><span class="tag">NIS2 Art.21(2)(e)</span><span class="tag">DORA Art.9</span><span class="tag">GDPR Art.32</span></div></div>
+<div class="card finding s-high"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">كلمة مرور مكتوبة مباشرة في الكود</span><span class="l-en">Hardcoded password</span></h3><span class="pill high"><span class="l-ar">عالية</span><span class="l-en">High</span> · SEC004</span></div>
+<div class="muted"><code>app.py:13</code></div>
+<pre>DB_PASSWORD = &quot;Supe********&quot;</pre>
+<div><span class="l-ar">يبدو أن كلمة مرور مكتوبة بشكل ثابت في الكود.</span><span class="l-en">A password appears to be hardcoded.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">استخدم متغيرات البيئة أو Vault، وغيّر كلمة المرور.</span><span class="l-en">Use environment variables / a vault and rotate the password.</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-2</span><span class="tag">NCA_ECC 2-7</span><span class="tag">NCA_ECC 1-6</span><span class="tag">CRA AnnexI-I(2)(d)</span><span class="tag">CRA AnnexI-I(2)(e)</span><span class="tag">NIS2 Art.21(2)(i)</span><span class="tag">NIS2 Art.21(2)(e)</span><span class="tag">DORA Art.9</span><span class="tag">GDPR Art.32</span></div></div>
+<div class="card finding s-high"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">استعلام SQL مبني بدمج النصوص (خطر حقن SQL)</span><span class="l-en">SQL query built from string concatenation</span></h3><span class="pill high"><span class="l-ar">عالية</span><span class="l-en">High</span> · INJ001</span></div>
+<div class="muted"><code>app.py:20</code></div>
+<pre>return str(conn.execute(&quot;SELECT * FROM users WHERE id = &quot; + uid).fetchall())</pre>
+<div><span class="l-ar">دمج مدخلات المستخدم داخل استعلام SQL قد يؤدي إلى هجوم حقن SQL وتسريب قاعدة البيانات.</span><span class="l-en">User input concatenated into SQL can lead to SQL injection.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">استخدم الاستعلامات المُعلَّمة (Parameterized)، مثل: cursor.execute(&quot;... WHERE id = %s&quot;, (user_id,)).</span><span class="l-en">Use parameterised queries, e.g. cursor.execute(&quot;... WHERE id = %s&quot;, (user_id,)).</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-15</span><span class="tag">NCA_ECC 1-6</span><span class="tag">CRA AnnexI-I(2)(a)</span><span class="tag">CRA AnnexI-I(2)(f)</span><span class="tag">NIS2 Art.21(2)(e)</span><span class="tag">DORA Art.9</span><span class="tag">GDPR Art.32</span></div></div>
+<div class="card finding s-high"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">تنفيذ أوامر نظام التشغيل عبر Shell</span><span class="l-en">OS command execution via shell</span></h3><span class="pill high"><span class="l-ar">عالية</span><span class="l-en">High</span> · INJ003</span></div>
+<div class="muted"><code>app.py:33</code></div>
+<pre>return subprocess.check_output(f&quot;ping -c 1 {host}&quot;, shell=True)</pre>
+<div><span class="l-ar">تمرير المدخلات إلى Shell يفتح الباب لهجوم حقن الأوامر.</span><span class="l-en">Passing input to a shell enables command injection.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">مرّر الأوامر كقائمة دون Shell (subprocess.run([...], shell=False)) وتحقّق من المدخلات.</span><span class="l-en">Use argument lists without a shell (subprocess.run([...], shell=False)) and validate input.</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-15</span><span class="tag">NCA_ECC 1-6</span><span class="tag">CRA AnnexI-I(2)(a)</span><span class="tag">CRA AnnexI-I(2)(f)</span><span class="tag">NIS2 Art.21(2)(e)</span><span class="tag">DORA Art.9</span><span class="tag">GDPR Art.32</span></div></div>
+<div class="card finding s-high"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">فك تسلسل غير آمن (Deserialization)</span><span class="l-en">Unsafe deserialization</span></h3><span class="pill high"><span class="l-ar">عالية</span><span class="l-en">High</span> · DES001</span></div>
+<div class="muted"><code>app.py:38</code></div>
+<pre>return str(pickle.loads(request.data))</pre>
+<div><span class="l-ar">فك تسلسل بيانات غير موثوقة قد يؤدي إلى تنفيذ كود عشوائي على الخادم.</span><span class="l-en">Deserializing untrusted data can execute arbitrary code.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">استخدم JSON أو yaml.safe_load، ولا تفك تسلسل pickle من مصدر غير موثوق.</span><span class="l-en">Use JSON or yaml.safe_load; never unpickle untrusted data.</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-15</span><span class="tag">NCA_ECC 1-6</span><span class="tag">CRA AnnexI-I(2)(a)</span><span class="tag">CRA AnnexI-I(2)(f)</span><span class="tag">NIS2 Art.21(2)(e)</span><span class="tag">DORA Art.9</span></div></div>
+<div class="card finding s-high"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">تعطيل التحقق من شهادة TLS</span><span class="l-en">TLS certificate verification disabled</span></h3><span class="pill high"><span class="l-ar">عالية</span><span class="l-en">High</span> · TLS001</span></div>
+<div class="muted"><code>app.py:46</code></div>
+<pre>return requests.get(&quot;https://partner.example.com/api&quot;, verify=False).json()</pre>
+<div><span class="l-ar">تعطيل التحقق من الشهادات يسمح بهجمات الوسيط (MITM) واعتراض البيانات.</span><span class="l-en">Disabling certificate checks allows man-in-the-middle attacks.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">أبقِ التحقق مفعّلاً، وأضف شهادة الجهة الداخلية (CA bundle) عند الحاجة.</span><span class="l-en">Keep verification on; trust internal CAs via a CA bundle instead.</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-8</span><span class="tag">NCA_ECC 2-7</span><span class="tag">CRA AnnexI-I(2)(e)</span><span class="tag">CRA AnnexI-I(2)(f)</span><span class="tag">NIS2 Art.21(2)(h)</span><span class="tag">DORA Art.9</span><span class="tag">GDPR Art.32</span></div></div>
+<div class="card finding s-medium"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">الحاوية (Container) تعمل بصلاحيات root</span><span class="l-en">Container runs as root</span></h3><span class="pill medium"><span class="l-ar">متوسطة</span><span class="l-en">Medium</span> · CON001</span></div>
+<div class="muted"><code>Dockerfile:1</code></div>
+<pre>(no non-root USER instruction)</pre>
+<div><span class="l-ar">ملف Dockerfile لا يحدد مستخدماً بصلاحيات محدودة (USER).</span><span class="l-en">Dockerfile has no non-root USER instruction.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">أضف مستخدماً مخصصاً: RUN adduser -D app ثم USER app</span><span class="l-en">Add a dedicated user: RUN adduser -D app &amp;&amp; USER app</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-3</span><span class="tag">CRA AnnexI-I(2)(b)</span><span class="tag">CRA AnnexI-I(2)(j)</span><span class="tag">NIS2 Art.21(2)(e)</span><span class="tag">DORA Art.9</span></div></div>
+<div class="card finding s-medium"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">خوارزمية تجزئة ضعيفة (MD5 أو SHA-1)</span><span class="l-en">Weak hashing algorithm (MD5/SHA-1)</span></h3><span class="pill medium"><span class="l-ar">متوسطة</span><span class="l-en">Medium</span> · CRY001</span></div>
+<div class="muted"><code>app.py:42</code></div>
+<pre>return hashlib.md5(pw.encode()).hexdigest()</pre>
+<div><span class="l-ar">خوارزميتا MD5 وSHA-1 مكسورتان ولا تصلحان للاستخدامات الأمنية.</span><span class="l-en">MD5 and SHA-1 are broken for security purposes.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">استخدم SHA-256 أو أعلى للتحقق من السلامة، وbcrypt أو argon2 لكلمات المرور.</span><span class="l-en">Use SHA-256+ for integrity, and bcrypt/argon2 for passwords.</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-8</span><span class="tag">CRA AnnexI-I(2)(e)</span><span class="tag">NIS2 Art.21(2)(h)</span><span class="tag">DORA Art.9</span><span class="tag">GDPR Art.32</span></div></div>
+<div class="card finding s-medium"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">وضع التصحيح (Debug) مفعّل</span><span class="l-en">Debug mode enabled</span></h3><span class="pill medium"><span class="l-ar">متوسطة</span><span class="l-en">Medium</span> · CFG001</span></div>
+<div class="muted"><code>app.py:50</code></div>
+<pre>app.run(host=&quot;0.0.0.0&quot;, debug=True)</pre>
+<div><span class="l-ar">وضع التصحيح قد يكشف تفاصيل الأخطاء الداخلية ويفتح واجهات تحكم في بيئة الإنتاج.</span><span class="l-en">Debug mode can leak stack traces and enable interactive consoles in production.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">اجعل وضع التصحيح يُضبط من متغير بيئة، وقيمته الافتراضية false.</span><span class="l-en">Drive debug from an environment variable and default it to false.</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-3</span><span class="tag">NCA_ECC 1-6</span><span class="tag">CRA AnnexI-I(2)(b)</span><span class="tag">CRA AnnexI-I(2)(j)</span><span class="tag">NIS2 Art.21(2)(e)</span><span class="tag">DORA Art.9</span><span class="tag">GDPR Art.25</span></div></div>
+<div class="card finding s-medium"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">احتمال ثغرة XSS في واجهة المتصفح</span><span class="l-en">Possible DOM XSS sink</span></h3><span class="pill medium"><span class="l-ar">متوسطة</span><span class="l-en">Medium</span> · XSS001</span></div>
+<div class="muted"><code>static/main.js:2</code></div>
+<pre>document.getElementById(&quot;greeting&quot;).innerHTML = &quot;Hello &quot; + params.get(&quot;name&quot;);</pre>
+<div><span class="l-ar">إدراج بيانات غير موثوقة كـ HTML يسمح بحقن سكربتات خبيثة (XSS).</span><span class="l-en">Writing untrusted data as HTML enables cross-site scripting.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">استخدم textContent أو نظّف المحتوى بمكتبة DOMPurify.</span><span class="l-en">Use textContent or sanitize with DOMPurify.</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-15</span><span class="tag">CRA AnnexI-I(2)(a)</span><span class="tag">CRA AnnexI-I(2)(f)</span><span class="tag">NIS2 Art.21(2)(e)</span><span class="tag">GDPR Art.32</span></div></div>
+<div class="card finding s-medium"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">سياسة CORS تسمح لأي نطاق (*)</span><span class="l-en">CORS allows any origin (*)</span></h3><span class="pill medium"><span class="l-ar">متوسطة</span><span class="l-en">Medium</span> · CFG002</span></div>
+<div class="muted"><code>static/main.js:3</code></div>
+<pre>fetch(&quot;/api/data&quot;, { headers: { &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot; } });</pre>
+<div><span class="l-ar">السماح لكل النطاقات يمكّن أي موقع من استدعاء واجهتك البرمجية من متصفح المستخدم.</span><span class="l-en">Wildcard CORS lets any website call your API from a user&#x27;s browser.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">حدّد قائمة صريحة بالنطاقات الموثوقة فقط.</span><span class="l-en">Allow-list the specific trusted origins.</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-3</span><span class="tag">NCA_ECC 1-6</span><span class="tag">CRA AnnexI-I(2)(b)</span><span class="tag">CRA AnnexI-I(2)(j)</span><span class="tag">NIS2 Art.21(2)(e)</span><span class="tag">DORA Art.9</span><span class="tag">GDPR Art.25</span></div></div>
+<div class="card finding s-low"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">الصورة الأساسية بدون إصدار محدد (latest)</span><span class="l-en">Base image uses :latest or no tag</span></h3><span class="pill low"><span class="l-ar">منخفضة</span><span class="l-en">Low</span> · CON002</span></div>
+<div class="muted"><code>Dockerfile:1</code></div>
+<pre>FROM python:latest</pre>
+<div><span class="l-ar">عدم تثبيت إصدار الصورة يجعل البناء غير قابل للتكرار وقد يجلب إصداراً مصاباً.</span><span class="l-en">Unpinned base images make builds non-reproducible and can pull vulnerable versions.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">ثبّت الإصدار أو البصمة، مثل python:3.12-slim@sha256:...</span><span class="l-en">Pin to a version or digest, e.g. python:3.12-slim@sha256:...</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-3</span><span class="tag">CRA AnnexI-I(2)(b)</span><span class="tag">CRA AnnexI-I(2)(j)</span><span class="tag">NIS2 Art.21(2)(e)</span><span class="tag">DORA Art.9</span></div></div>
+<div class="card finding s-low"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">اعتمادية برمجية بدون إصدار مثبّت</span><span class="l-en">Unpinned dependency</span></h3><span class="pill low"><span class="l-ar">منخفضة</span><span class="l-en">Low</span> · DEP001</span></div>
+<div class="muted"><code>package.json:3</code></div>
+<pre>&quot;axios&quot;: &quot;^1.6.0&quot;</pre>
+<div><span class="l-ar">الاعتماديات بدون إصدار دقيق تُضعف التحكم في سلسلة التوريد ودقة قائمة المكونات (SBOM).</span><span class="l-en">Dependencies without exact versions weaken supply-chain control and SBOM accuracy.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">ثبّت الإصدارات بدقة واستخدم ملف قفل (== في requirements.txt أو package-lock.json).</span><span class="l-en">Pin exact versions and use a lock file (requirements.txt with ==, package-lock.json).</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-10</span><span class="tag">NCA_ECC 4-1</span><span class="tag">CRA AnnexI-II(1)</span><span class="tag">CRA Art.13(5)</span><span class="tag">NIS2 Art.21(2)(d)</span><span class="tag">DORA Art.28</span></div></div>
+<div class="card finding s-low"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">اعتمادية برمجية بدون إصدار مثبّت</span><span class="l-en">Unpinned dependency</span></h3><span class="pill low"><span class="l-ar">منخفضة</span><span class="l-en">Low</span> · DEP001</span></div>
+<div class="muted"><code>requirements.txt:2</code></div>
+<pre>requests</pre>
+<div><span class="l-ar">الاعتماديات بدون إصدار دقيق تُضعف التحكم في سلسلة التوريد ودقة قائمة المكونات (SBOM).</span><span class="l-en">Dependencies without exact versions weaken supply-chain control and SBOM accuracy.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">ثبّت الإصدارات بدقة واستخدم ملف قفل (== في requirements.txt أو package-lock.json).</span><span class="l-en">Pin exact versions and use a lock file (requirements.txt with ==, package-lock.json).</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-10</span><span class="tag">NCA_ECC 4-1</span><span class="tag">CRA AnnexI-II(1)</span><span class="tag">CRA Art.13(5)</span><span class="tag">NIS2 Art.21(2)(d)</span><span class="tag">DORA Art.28</span></div></div>
+<div class="card finding s-low"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+<h3><span class="l-ar">اعتمادية برمجية بدون إصدار مثبّت</span><span class="l-en">Unpinned dependency</span></h3><span class="pill low"><span class="l-ar">منخفضة</span><span class="l-en">Low</span> · DEP001</span></div>
+<div class="muted"><code>requirements.txt:3</code></div>
+<pre>pyyaml&gt;=6.0</pre>
+<div><span class="l-ar">الاعتماديات بدون إصدار دقيق تُضعف التحكم في سلسلة التوريد ودقة قائمة المكونات (SBOM).</span><span class="l-en">Dependencies without exact versions weaken supply-chain control and SBOM accuracy.</span></div>
+<div style="margin-top:6px"><strong><span class="l-ar">طريقة الإصلاح:</span><span class="l-en">How to fix:</span></strong> <span class="l-ar">ثبّت الإصدارات بدقة واستخدم ملف قفل (== في requirements.txt أو package-lock.json).</span><span class="l-en">Pin exact versions and use a lock file (requirements.txt with ==, package-lock.json).</span></div>
+<div class="tags"><span class="tag">NCA_ECC 2-10</span><span class="tag">NCA_ECC 4-1</span><span class="tag">CRA AnnexI-II(1)</span><span class="tag">CRA Art.13(5)</span><span class="tag">NIS2 Art.21(2)(d)</span><span class="tag">DORA Art.28</span></div></div></div>
+<div class="note"><span class="l-ar">تنبيه: هذا الربط بين الملاحظات والضوابط التنظيمية استرشادي ويجب مراجعته من مختص امتثال معتمد قبل اعتماده كدليل تدقيق. نسبة الجاهزية تعكس فقط الضوابط القابلة للفحص آلياً من الكود.</span><span class="l-en">Indicative mapping for an MVP. Must be reviewed by a qualified compliance professional before being used as audit evidence. The readiness score reflects only controls that can be checked automatically from code.</span></div>
+</div><script>
+function toggleLang(){var h=document.documentElement;var ar=h.lang==='ar';h.lang=ar?'en':'ar';h.dir=ar?'ltr':'rtl';
+try{localStorage.setItem('copilot-lang',h.lang)}catch(e){}}
+try{var l=localStorage.getItem('copilot-lang');if(l==='en')toggleLang();}catch(e){}
+</script></body></html>

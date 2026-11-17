@@ -1,0 +1,23 @@
+name: "DevSecOps Copilot"
+description: "Code security scan mapped to GCC (NCA ECC) and EU (CRA, NIS2, DORA, GDPR) compliance controls"
+inputs:
+  path:
+    description: "Directory to scan"
+    default: "."
+  frameworks:
+    description: "Comma separated frameworks"
+    default: "NCA_ECC,CRA,NIS2,DORA,GDPR"
+  fail-on:
+    description: "critical | high | medium | low | none"
+    default: "high"
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Run DevSecOps Copilot
+      shell: bash
+      run: |
+        PYTHONPATH="${{ github.action_path }}" python -m copilot scan "${{ inputs.path }}" \
+          --out copilot-report --frameworks "${{ inputs.frameworks }}" --fail-on "${{ inputs.fail-on }}"

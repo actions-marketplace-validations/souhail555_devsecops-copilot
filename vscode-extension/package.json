@@ -1,0 +1,56 @@
+{
+  "name": "devsecops-copilot",
+  "displayName": "DevSecOps Copilot",
+  "description": "Inline code security findings mapped to GCC (NCA ECC) and EU (CRA, NIS2, DORA, GDPR) compliance controls — Arabic & English.",
+  "version": "0.1.0",
+  "publisher": "devsecops-copilot",
+  "license": "UNLICENSED",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Linters", "Other"],
+  "keywords": ["security", "compliance", "NCA", "CRA", "NIS2", "DORA", "GDPR", "SBOM", "arabic"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "devsecopsCopilot.scan", "title": "Scan workspace", "category": "DevSecOps Copilot", "icon": "$(shield)" },
+      { "command": "devsecopsCopilot.openReport", "title": "Open compliance report", "category": "DevSecOps Copilot" },
+      { "command": "devsecopsCopilot.toggleLanguage", "title": "Switch language (العربية / English)", "category": "DevSecOps Copilot" },
+      { "command": "devsecopsCopilot.clear", "title": "Clear findings", "category": "DevSecOps Copilot" }
+    ],
+    "configuration": {
+      "title": "DevSecOps Copilot",
+      "properties": {
+        "devsecopsCopilot.language": {
+          "type": "string", "enum": ["ar", "en"], "default": "ar",
+          "description": "Language of findings and hovers (ar = العربية, en = English)."
+        },
+        "devsecopsCopilot.pythonPath": {
+          "type": "string", "default": "python",
+          "description": "Python 3.12+ interpreter used to run the scan engine."
+        },
+        "devsecopsCopilot.enginePath": {
+          "type": "string", "default": "",
+          "description": "Folder that contains the 'copilot' Python package. Leave empty to use the bundled engine."
+        },
+        "devsecopsCopilot.frameworks": {
+          "type": "array", "items": { "type": "string", "enum": ["NCA_ECC", "CRA", "NIS2", "DORA", "GDPR"] },
+          "default": ["NCA_ECC", "CRA", "NIS2", "DORA", "GDPR"],
+          "description": "Regulatory frameworks to map findings to."
+        },
+        "devsecopsCopilot.scanOnSave": {
+          "type": "boolean", "default": true,
+          "description": "Re-scan the workspace when a file is saved."
+        },
+        "devsecopsCopilot.minimumSeverity": {
+          "type": "string", "enum": ["low", "medium", "high", "critical"], "default": "low",
+          "description": "Hide findings below this severity."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "bundle-engine": "node scripts/bundle-engine.js",
+    "test": "node test/run.js",
+    "package": "npm run bundle-engine && npx @vscode/vsce@3.2.1 package"
+  }
+}

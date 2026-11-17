@@ -1,0 +1,79 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:87965b25-1388-473c-9c6b-c3f05437a966",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-17T07:26:23+00:00",
+    "tools": [
+      {
+        "vendor": "DevSecOps Copilot",
+        "name": "copilot",
+        "version": "0.1.0"
+      }
+    ],
+    "component": {
+      "type": "application",
+      "name": "vulnerable-app"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "axios",
+      "purl": "pkg:npm/axios",
+      "properties": [
+        {
+          "name": "copilot:source",
+          "value": "package.json"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lodash",
+      "purl": "pkg:npm/lodash@4.17.21",
+      "properties": [
+        {
+          "name": "copilot:source",
+          "value": "package.json"
+        }
+      ],
+      "version": "4.17.21"
+    },
+    {
+      "type": "library",
+      "name": "flask",
+      "purl": "pkg:pypi/flask@3.0.3",
+      "properties": [
+        {
+          "name": "copilot:source",
+          "value": "requirements.txt"
+        }
+      ],
+      "version": "3.0.3"
+    },
+    {
+      "type": "library",
+      "name": "requests",
+      "purl": "pkg:pypi/requests",
+      "properties": [
+        {
+          "name": "copilot:source",
+          "value": "requirements.txt"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pyyaml",
+      "purl": "pkg:pypi/pyyaml",
+      "properties": [
+        {
+          "name": "copilot:source",
+          "value": "requirements.txt"
+        }
+      ]
+    }
+  ]
+}

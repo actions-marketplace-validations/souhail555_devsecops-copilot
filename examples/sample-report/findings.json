@@ -1,0 +1,931 @@
+{
+  "project": "vulnerable-app",
+  "stats": {
+    "files": 5,
+    "components": 5
+  },
+  "findings": [
+    {
+      "rule_id": "SEC001",
+      "category": "secrets",
+      "severity": "critical",
+      "title": {
+        "en": "AWS access key committed to source",
+        "ar": "مفتاح وصول AWS مكشوف في الكود"
+      },
+      "desc": {
+        "en": "An AWS access key ID was found. Anyone with repo access can use it to reach your cloud account.",
+        "ar": "تم العثور على مفتاح وصول AWS. أي شخص يملك صلاحية قراءة المستودع يستطيع استخدامه للوصول إلى حسابك السحابي."
+      },
+      "fix": {
+        "en": "Revoke the key in AWS IAM immediately, move it to a secrets manager (AWS Secrets Manager / Vault) and read it from an environment variable.",
+        "ar": "ألغِ المفتاح فوراً من AWS IAM، وانقله إلى مدير أسرار (AWS Secrets Manager أو Vault)، واقرأه من متغير بيئة."
+      },
+      "file": "app.py",
+      "line": 11,
+      "snippet": "AWS_ACCESS_KEY_ID = \"AKIA********\"          # fake example key",
+      "controls": {
+        "NCA_ECC": [
+          "2-2",
+          "2-7",
+          "1-6"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(d)",
+          "AnnexI-I(2)(e)"
+        ],
+        "NIS2": [
+          "Art.21(2)(i)",
+          "Art.21(2)(e)"
+        ],
+        "DORA": [
+          "Art.9"
+        ],
+        "GDPR": [
+          "Art.32"
+        ]
+      }
+    },
+    {
+      "rule_id": "SEC003",
+      "category": "secrets",
+      "severity": "high",
+      "title": {
+        "en": "Hardcoded API key / token",
+        "ar": "مفتاح API أو رمز وصول مكتوب مباشرة في الكود"
+      },
+      "desc": {
+        "en": "A credential-like value is hardcoded in the source.",
+        "ar": "قيمة تشبه بيانات اعتماد مكتوبة بشكل ثابت داخل الكود المصدري."
+      },
+      "fix": {
+        "en": "Load secrets from environment variables or a secrets manager; rotate the exposed value.",
+        "ar": "حمّل الأسرار من متغيرات البيئة أو مدير أسرار، واستبدل القيمة المكشوفة."
+      },
+      "file": "app.py",
+      "line": 12,
+      "snippet": "API_KEY = \"demo********\"",
+      "controls": {
+        "NCA_ECC": [
+          "2-2",
+          "2-7",
+          "1-6"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(d)",
+          "AnnexI-I(2)(e)"
+        ],
+        "NIS2": [
+          "Art.21(2)(i)",
+          "Art.21(2)(e)"
+        ],
+        "DORA": [
+          "Art.9"
+        ],
+        "GDPR": [
+          "Art.32"
+        ]
+      }
+    },
+    {
+      "rule_id": "SEC004",
+      "category": "secrets",
+      "severity": "high",
+      "title": {
+        "en": "Hardcoded password",
+        "ar": "كلمة مرور مكتوبة مباشرة في الكود"
+      },
+      "desc": {
+        "en": "A password appears to be hardcoded.",
+        "ar": "يبدو أن كلمة مرور مكتوبة بشكل ثابت في الكود."
+      },
+      "fix": {
+        "en": "Use environment variables / a vault and rotate the password.",
+        "ar": "استخدم متغيرات البيئة أو Vault، وغيّر كلمة المرور."
+      },
+      "file": "app.py",
+      "line": 13,
+      "snippet": "DB_PASSWORD = \"Supe********\"",
+      "controls": {
+        "NCA_ECC": [
+          "2-2",
+          "2-7",
+          "1-6"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(d)",
+          "AnnexI-I(2)(e)"
+        ],
+        "NIS2": [
+          "Art.21(2)(i)",
+          "Art.21(2)(e)"
+        ],
+        "DORA": [
+          "Art.9"
+        ],
+        "GDPR": [
+          "Art.32"
+        ]
+      }
+    },
+    {
+      "rule_id": "INJ001",
+      "category": "injection",
+      "severity": "high",
+      "title": {
+        "en": "SQL query built from string concatenation",
+        "ar": "استعلام SQL مبني بدمج النصوص (خطر حقن SQL)"
+      },
+      "desc": {
+        "en": "User input concatenated into SQL can lead to SQL injection.",
+        "ar": "دمج مدخلات المستخدم داخل استعلام SQL قد يؤدي إلى هجوم حقن SQL وتسريب قاعدة البيانات."
+      },
+      "fix": {
+        "en": "Use parameterised queries, e.g. cursor.execute(\"... WHERE id = %s\", (user_id,)).",
+        "ar": "استخدم الاستعلامات المُعلَّمة (Parameterized)، مثل: cursor.execute(\"... WHERE id = %s\", (user_id,))."
+      },
+      "file": "app.py",
+      "line": 20,
+      "snippet": "return str(conn.execute(\"SELECT * FROM users WHERE id = \" + uid).fetchall())",
+      "controls": {
+        "NCA_ECC": [
+          "2-15",
+          "1-6"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(a)",
+          "AnnexI-I(2)(f)"
+        ],
+        "NIS2": [
+          "Art.21(2)(e)"
+        ],
+        "DORA": [
+          "Art.9"
+        ],
+        "GDPR": [
+          "Art.32"
+        ]
+      }
+    },
+    {
+      "rule_id": "INJ003",
+      "category": "injection",
+      "severity": "high",
+      "title": {
+        "en": "OS command execution via shell",
+        "ar": "تنفيذ أوامر نظام التشغيل عبر Shell"
+      },
+      "desc": {
+        "en": "Passing input to a shell enables command injection.",
+        "ar": "تمرير المدخلات إلى Shell يفتح الباب لهجوم حقن الأوامر."
+      },
+      "fix": {
+        "en": "Use argument lists without a shell (subprocess.run([...], shell=False)) and validate input.",
+        "ar": "مرّر الأوامر كقائمة دون Shell (subprocess.run([...], shell=False)) وتحقّق من المدخلات."
+      },
+      "file": "app.py",
+      "line": 33,
+      "snippet": "return subprocess.check_output(f\"ping -c 1 {host}\", shell=True)",
+      "controls": {
+        "NCA_ECC": [
+          "2-15",
+          "1-6"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(a)",
+          "AnnexI-I(2)(f)"
+        ],
+        "NIS2": [
+          "Art.21(2)(e)"
+        ],
+        "DORA": [
+          "Art.9"
+        ],
+        "GDPR": [
+          "Art.32"
+        ]
+      }
+    },
+    {
+      "rule_id": "CRY001",
+      "category": "crypto",
+      "severity": "medium",
+      "title": {
+        "en": "Weak hashing algorithm (MD5/SHA-1)",
+        "ar": "خوارزمية تجزئة ضعيفة (MD5 أو SHA-1)"
+      },
+      "desc": {
+        "en": "MD5 and SHA-1 are broken for security purposes.",
+        "ar": "خوارزميتا MD5 وSHA-1 مكسورتان ولا تصلحان للاستخدامات الأمنية."
+      },
+      "fix": {
+        "en": "Use SHA-256+ for integrity, and bcrypt/argon2 for passwords.",
+        "ar": "استخدم SHA-256 أو أعلى للتحقق من السلامة، وbcrypt أو argon2 لكلمات المرور."
+      },
+      "file": "app.py",
+      "line": 42,
+      "snippet": "return hashlib.md5(pw.encode()).hexdigest()",
+      "controls": {
+        "NCA_ECC": [
+          "2-8"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(e)"
+        ],
+        "NIS2": [
+          "Art.21(2)(h)"
+        ],
+        "DORA": [
+          "Art.9"
+        ],
+        "GDPR": [
+          "Art.32"
+        ]
+      }
+    },
+    {
+      "rule_id": "TLS001",
+      "category": "tls",
+      "severity": "high",
+      "title": {
+        "en": "TLS certificate verification disabled",
+        "ar": "تعطيل التحقق من شهادة TLS"
+      },
+      "desc": {
+        "en": "Disabling certificate checks allows man-in-the-middle attacks.",
+        "ar": "تعطيل التحقق من الشهادات يسمح بهجمات الوسيط (MITM) واعتراض البيانات."
+      },
+      "fix": {
+        "en": "Keep verification on; trust internal CAs via a CA bundle instead.",
+        "ar": "أبقِ التحقق مفعّلاً، وأضف شهادة الجهة الداخلية (CA bundle) عند الحاجة."
+      },
+      "file": "app.py",
+      "line": 46,
+      "snippet": "return requests.get(\"https://partner.example.com/api\", verify=False).json()",
+      "controls": {
+        "NCA_ECC": [
+          "2-8",
+          "2-7"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(e)",
+          "AnnexI-I(2)(f)"
+        ],
+        "NIS2": [
+          "Art.21(2)(h)"
+        ],
+        "DORA": [
+          "Art.9"
+        ],
+        "GDPR": [
+          "Art.32"
+        ]
+      }
+    },
+    {
+      "rule_id": "CFG001",
+      "category": "config",
+      "severity": "medium",
+      "title": {
+        "en": "Debug mode enabled",
+        "ar": "وضع التصحيح (Debug) مفعّل"
+      },
+      "desc": {
+        "en": "Debug mode can leak stack traces and enable interactive consoles in production.",
+        "ar": "وضع التصحيح قد يكشف تفاصيل الأخطاء الداخلية ويفتح واجهات تحكم في بيئة الإنتاج."
+      },
+      "fix": {
+        "en": "Drive debug from an environment variable and default it to false.",
+        "ar": "اجعل وضع التصحيح يُضبط من متغير بيئة، وقيمته الافتراضية false."
+      },
+      "file": "app.py",
+      "line": 50,
+      "snippet": "app.run(host=\"0.0.0.0\", debug=True)",
+      "controls": {
+        "NCA_ECC": [
+          "2-3",
+          "1-6"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(b)",
+          "AnnexI-I(2)(j)"
+        ],
+        "NIS2": [
+          "Art.21(2)(e)"
+        ],
+        "DORA": [
+          "Art.9"
+        ],
+        "GDPR": [
+          "Art.25"
+        ]
+      }
+    },
+    {
+      "rule_id": "DES001",
+      "category": "deserialization",
+      "severity": "high",
+      "title": {
+        "en": "Unsafe deserialization",
+        "ar": "فك تسلسل غير آمن (Deserialization)"
+      },
+      "desc": {
+        "en": "Deserializing untrusted data can execute arbitrary code.",
+        "ar": "فك تسلسل بيانات غير موثوقة قد يؤدي إلى تنفيذ كود عشوائي على الخادم."
+      },
+      "fix": {
+        "en": "Use JSON or yaml.safe_load; never unpickle untrusted data.",
+        "ar": "استخدم JSON أو yaml.safe_load، ولا تفك تسلسل pickle من مصدر غير موثوق."
+      },
+      "file": "app.py",
+      "line": 38,
+      "snippet": "return str(pickle.loads(request.data))",
+      "controls": {
+        "NCA_ECC": [
+          "2-15",
+          "1-6"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(a)",
+          "AnnexI-I(2)(f)"
+        ],
+        "NIS2": [
+          "Art.21(2)(e)"
+        ],
+        "DORA": [
+          "Art.9"
+        ]
+      }
+    },
+    {
+      "rule_id": "CON001",
+      "category": "container",
+      "severity": "medium",
+      "title": {
+        "en": "Container runs as root",
+        "ar": "الحاوية (Container) تعمل بصلاحيات root"
+      },
+      "desc": {
+        "en": "Dockerfile has no non-root USER instruction.",
+        "ar": "ملف Dockerfile لا يحدد مستخدماً بصلاحيات محدودة (USER)."
+      },
+      "fix": {
+        "en": "Add a dedicated user: RUN adduser -D app && USER app",
+        "ar": "أضف مستخدماً مخصصاً: RUN adduser -D app ثم USER app"
+      },
+      "file": "Dockerfile",
+      "line": 1,
+      "snippet": "(no non-root USER instruction)",
+      "controls": {
+        "NCA_ECC": [
+          "2-3"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(b)",
+          "AnnexI-I(2)(j)"
+        ],
+        "NIS2": [
+          "Art.21(2)(e)"
+        ],
+        "DORA": [
+          "Art.9"
+        ]
+      }
+    },
+    {
+      "rule_id": "CON002",
+      "category": "container",
+      "severity": "low",
+      "title": {
+        "en": "Base image uses :latest or no tag",
+        "ar": "الصورة الأساسية بدون إصدار محدد (latest)"
+      },
+      "desc": {
+        "en": "Unpinned base images make builds non-reproducible and can pull vulnerable versions.",
+        "ar": "عدم تثبيت إصدار الصورة يجعل البناء غير قابل للتكرار وقد يجلب إصداراً مصاباً."
+      },
+      "fix": {
+        "en": "Pin to a version or digest, e.g. python:3.12-slim@sha256:...",
+        "ar": "ثبّت الإصدار أو البصمة، مثل python:3.12-slim@sha256:..."
+      },
+      "file": "Dockerfile",
+      "line": 1,
+      "snippet": "FROM python:latest",
+      "controls": {
+        "NCA_ECC": [
+          "2-3"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(b)",
+          "AnnexI-I(2)(j)"
+        ],
+        "NIS2": [
+          "Art.21(2)(e)"
+        ],
+        "DORA": [
+          "Art.9"
+        ]
+      }
+    },
+    {
+      "rule_id": "DEP001",
+      "category": "supply_chain",
+      "severity": "low",
+      "title": {
+        "en": "Unpinned dependency",
+        "ar": "اعتمادية برمجية بدون إصدار مثبّت"
+      },
+      "desc": {
+        "en": "Dependencies without exact versions weaken supply-chain control and SBOM accuracy.",
+        "ar": "الاعتماديات بدون إصدار دقيق تُضعف التحكم في سلسلة التوريد ودقة قائمة المكونات (SBOM)."
+      },
+      "fix": {
+        "en": "Pin exact versions and use a lock file (requirements.txt with ==, package-lock.json).",
+        "ar": "ثبّت الإصدارات بدقة واستخدم ملف قفل (== في requirements.txt أو package-lock.json)."
+      },
+      "file": "package.json",
+      "line": 3,
+      "snippet": "\"axios\": \"^1.6.0\"",
+      "controls": {
+        "NCA_ECC": [
+          "2-10",
+          "4-1"
+        ],
+        "CRA": [
+          "AnnexI-II(1)",
+          "Art.13(5)"
+        ],
+        "NIS2": [
+          "Art.21(2)(d)"
+        ],
+        "DORA": [
+          "Art.28"
+        ]
+      }
+    },
+    {
+      "rule_id": "DEP001",
+      "category": "supply_chain",
+      "severity": "low",
+      "title": {
+        "en": "Unpinned dependency",
+        "ar": "اعتمادية برمجية بدون إصدار مثبّت"
+      },
+      "desc": {
+        "en": "Dependencies without exact versions weaken supply-chain control and SBOM accuracy.",
+        "ar": "الاعتماديات بدون إصدار دقيق تُضعف التحكم في سلسلة التوريد ودقة قائمة المكونات (SBOM)."
+      },
+      "fix": {
+        "en": "Pin exact versions and use a lock file (requirements.txt with ==, package-lock.json).",
+        "ar": "ثبّت الإصدارات بدقة واستخدم ملف قفل (== في requirements.txt أو package-lock.json)."
+      },
+      "file": "requirements.txt",
+      "line": 2,
+      "snippet": "requests",
+      "controls": {
+        "NCA_ECC": [
+          "2-10",
+          "4-1"
+        ],
+        "CRA": [
+          "AnnexI-II(1)",
+          "Art.13(5)"
+        ],
+        "NIS2": [
+          "Art.21(2)(d)"
+        ],
+        "DORA": [
+          "Art.28"
+        ]
+      }
+    },
+    {
+      "rule_id": "DEP001",
+      "category": "supply_chain",
+      "severity": "low",
+      "title": {
+        "en": "Unpinned dependency",
+        "ar": "اعتمادية برمجية بدون إصدار مثبّت"
+      },
+      "desc": {
+        "en": "Dependencies without exact versions weaken supply-chain control and SBOM accuracy.",
+        "ar": "الاعتماديات بدون إصدار دقيق تُضعف التحكم في سلسلة التوريد ودقة قائمة المكونات (SBOM)."
+      },
+      "fix": {
+        "en": "Pin exact versions and use a lock file (requirements.txt with ==, package-lock.json).",
+        "ar": "ثبّت الإصدارات بدقة واستخدم ملف قفل (== في requirements.txt أو package-lock.json)."
+      },
+      "file": "requirements.txt",
+      "line": 3,
+      "snippet": "pyyaml>=6.0",
+      "controls": {
+        "NCA_ECC": [
+          "2-10",
+          "4-1"
+        ],
+        "CRA": [
+          "AnnexI-II(1)",
+          "Art.13(5)"
+        ],
+        "NIS2": [
+          "Art.21(2)(d)"
+        ],
+        "DORA": [
+          "Art.28"
+        ]
+      }
+    },
+    {
+      "rule_id": "CFG002",
+      "category": "config",
+      "severity": "medium",
+      "title": {
+        "en": "CORS allows any origin (*)",
+        "ar": "سياسة CORS تسمح لأي نطاق (*)"
+      },
+      "desc": {
+        "en": "Wildcard CORS lets any website call your API from a user's browser.",
+        "ar": "السماح لكل النطاقات يمكّن أي موقع من استدعاء واجهتك البرمجية من متصفح المستخدم."
+      },
+      "fix": {
+        "en": "Allow-list the specific trusted origins.",
+        "ar": "حدّد قائمة صريحة بالنطاقات الموثوقة فقط."
+      },
+      "file": "static/main.js",
+      "line": 3,
+      "snippet": "fetch(\"/api/data\", { headers: { \"Access-Control-Allow-Origin\": \"*\" } });",
+      "controls": {
+        "NCA_ECC": [
+          "2-3",
+          "1-6"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(b)",
+          "AnnexI-I(2)(j)"
+        ],
+        "NIS2": [
+          "Art.21(2)(e)"
+        ],
+        "DORA": [
+          "Art.9"
+        ],
+        "GDPR": [
+          "Art.25"
+        ]
+      }
+    },
+    {
+      "rule_id": "XSS001",
+      "category": "xss",
+      "severity": "medium",
+      "title": {
+        "en": "Possible DOM XSS sink",
+        "ar": "احتمال ثغرة XSS في واجهة المتصفح"
+      },
+      "desc": {
+        "en": "Writing untrusted data as HTML enables cross-site scripting.",
+        "ar": "إدراج بيانات غير موثوقة كـ HTML يسمح بحقن سكربتات خبيثة (XSS)."
+      },
+      "fix": {
+        "en": "Use textContent or sanitize with DOMPurify.",
+        "ar": "استخدم textContent أو نظّف المحتوى بمكتبة DOMPurify."
+      },
+      "file": "static/main.js",
+      "line": 2,
+      "snippet": "document.getElementById(\"greeting\").innerHTML = \"Hello \" + params.get(\"name\");",
+      "controls": {
+        "NCA_ECC": [
+          "2-15"
+        ],
+        "CRA": [
+          "AnnexI-I(2)(a)",
+          "AnnexI-I(2)(f)"
+        ],
+        "NIS2": [
+          "Art.21(2)(e)"
+        ],
+        "GDPR": [
+          "Art.32"
+        ]
+      }
+    }
+  ],
+  "frameworks": {
+    "NCA_ECC": {
+      "name": {
+        "en": "NCA Essential Cybersecurity Controls (ECC) - KSA",
+        "ar": "الضوابط الأساسية للأمن السيبراني (NCA ECC) - السعودية"
+      },
+      "region": "GCC",
+      "controls": [
+        {
+          "id": "1-6",
+          "label": {
+            "en": "Cybersecurity in IT projects (secure development)",
+            "ar": "الأمن السيبراني ضمن إدارة مشاريع تقنية المعلومات (التطوير الآمن)"
+          },
+          "status": "issues",
+          "findings": 8,
+          "evidence": [],
+          "worst": "critical"
+        },
+        {
+          "id": "2-2",
+          "label": {
+            "en": "Identity and access management",
+            "ar": "إدارة هويات الدخول والصلاحيات"
+          },
+          "status": "issues",
+          "findings": 3,
+          "evidence": [],
+          "worst": "critical"
+        },
+        {
+          "id": "2-3",
+          "label": {
+            "en": "Information system and processing facilities protection",
+            "ar": "حماية الأنظمة وأجهزة معالجة المعلومات"
+          },
+          "status": "issues",
+          "findings": 4,
+          "evidence": [],
+          "worst": "medium"
+        },
+        {
+          "id": "2-7",
+          "label": {
+            "en": "Data and information protection",
+            "ar": "حماية البيانات والمعلومات"
+          },
+          "status": "issues",
+          "findings": 4,
+          "evidence": [],
+          "worst": "critical"
+        },
+        {
+          "id": "2-8",
+          "label": {
+            "en": "Cryptography",
+            "ar": "التشفير"
+          },
+          "status": "issues",
+          "findings": 2,
+          "evidence": [],
+          "worst": "high"
+        },
+        {
+          "id": "2-10",
+          "label": {
+            "en": "Vulnerabilities management",
+            "ar": "إدارة الثغرات"
+          },
+          "status": "issues",
+          "findings": 3,
+          "evidence": [],
+          "worst": "low"
+        },
+        {
+          "id": "2-15",
+          "label": {
+            "en": "Web application security",
+            "ar": "أمن تطبيقات الويب"
+          },
+          "status": "issues",
+          "findings": 4,
+          "evidence": [],
+          "worst": "high"
+        },
+        {
+          "id": "4-1",
+          "label": {
+            "en": "Third-party cybersecurity",
+            "ar": "الأمن السيبراني المتعلق بالأطراف الخارجية"
+          },
+          "status": "issues",
+          "findings": 3,
+          "evidence": [],
+          "worst": "low"
+        }
+      ],
+      "score": 0
+    },
+    "CRA": {
+      "name": {
+        "en": "EU Cyber Resilience Act (Regulation (EU) 2024/2847)",
+        "ar": "قانون المرونة السيبرانية الأوروبي (CRA)"
+      },
+      "region": "EU",
+      "controls": [
+        {
+          "id": "AnnexI-I(2)(a)",
+          "label": {
+            "en": "No known exploitable vulnerabilities",
+            "ar": "خلو المنتج من ثغرات معروفة قابلة للاستغلال"
+          },
+          "status": "issues",
+          "findings": 4,
+          "evidence": [],
+          "worst": "high"
+        },
+        {
+          "id": "AnnexI-I(2)(b)",
+          "label": {
+            "en": "Secure by default configuration",
+            "ar": "إعدادات آمنة افتراضياً"
+          },
+          "status": "issues",
+          "findings": 4,
+          "evidence": [],
+          "worst": "medium"
+        },
+        {
+          "id": "AnnexI-I(2)(d)",
+          "label": {
+            "en": "Protection from unauthorised access",
+            "ar": "الحماية من الوصول غير المصرّح به"
+          },
+          "status": "issues",
+          "findings": 3,
+          "evidence": [],
+          "worst": "critical"
+        },
+        {
+          "id": "AnnexI-I(2)(e)",
+          "label": {
+            "en": "Confidentiality of data (encryption)",
+            "ar": "سرية البيانات (التشفير)"
+          },
+          "status": "issues",
+          "findings": 5,
+          "evidence": [],
+          "worst": "critical"
+        },
+        {
+          "id": "AnnexI-I(2)(f)",
+          "label": {
+            "en": "Integrity of data, commands and programs",
+            "ar": "سلامة البيانات والأوامر والبرامج"
+          },
+          "status": "issues",
+          "findings": 5,
+          "evidence": [],
+          "worst": "high"
+        },
+        {
+          "id": "AnnexI-I(2)(j)",
+          "label": {
+            "en": "Limit attack surfaces",
+            "ar": "تقليل سطح الهجوم"
+          },
+          "status": "issues",
+          "findings": 4,
+          "evidence": [],
+          "worst": "medium"
+        },
+        {
+          "id": "AnnexI-II(1)",
+          "label": {
+            "en": "Identify components, including an SBOM",
+            "ar": "توثيق المكونات بما فيها قائمة المكونات البرمجية (SBOM)"
+          },
+          "status": "issues",
+          "findings": 3,
+          "evidence": [
+            "sbom.cdx.json"
+          ],
+          "worst": "low"
+        },
+        {
+          "id": "Art.13(5)",
+          "label": {
+            "en": "Due diligence on third-party components",
+            "ar": "العناية الواجبة تجاه مكونات الأطراف الخارجية"
+          },
+          "status": "issues",
+          "findings": 3,
+          "evidence": [],
+          "worst": "low"
+        }
+      ],
+      "score": 0
+    },
+    "NIS2": {
+      "name": {
+        "en": "EU NIS2 Directive (2022/2555)",
+        "ar": "توجيه NIS2 الأوروبي"
+      },
+      "region": "EU",
+      "controls": [
+        {
+          "id": "Art.21(2)(d)",
+          "label": {
+            "en": "Supply chain security",
+            "ar": "أمن سلسلة التوريد"
+          },
+          "status": "issues",
+          "findings": 3,
+          "evidence": [],
+          "worst": "low"
+        },
+        {
+          "id": "Art.21(2)(e)",
+          "label": {
+            "en": "Security in development and maintenance, vulnerability handling",
+            "ar": "الأمن في التطوير والصيانة ومعالجة الثغرات"
+          },
+          "status": "issues",
+          "findings": 11,
+          "evidence": [],
+          "worst": "critical"
+        },
+        {
+          "id": "Art.21(2)(h)",
+          "label": {
+            "en": "Cryptography and encryption",
+            "ar": "التشفير"
+          },
+          "status": "issues",
+          "findings": 2,
+          "evidence": [],
+          "worst": "high"
+        },
+        {
+          "id": "Art.21(2)(i)",
+          "label": {
+            "en": "Access control policies",
+            "ar": "سياسات التحكم في الوصول"
+          },
+          "status": "issues",
+          "findings": 3,
+          "evidence": [],
+          "worst": "critical"
+        }
+      ],
+      "score": 0
+    },
+    "DORA": {
+      "name": {
+        "en": "EU Digital Operational Resilience Act (2022/2554) - financial sector",
+        "ar": "قانون المرونة التشغيلية الرقمية DORA (القطاع المالي)"
+      },
+      "region": "EU",
+      "controls": [
+        {
+          "id": "Art.9",
+          "label": {
+            "en": "ICT protection and prevention",
+            "ar": "الحماية والوقاية في أنظمة تقنية المعلومات والاتصالات"
+          },
+          "status": "issues",
+          "findings": 12,
+          "evidence": [],
+          "worst": "critical"
+        },
+        {
+          "id": "Art.28",
+          "label": {
+            "en": "ICT third-party risk",
+            "ar": "مخاطر مزوّدي الخدمات التقنية من الأطراف الخارجية"
+          },
+          "status": "issues",
+          "findings": 3,
+          "evidence": [],
+          "worst": "low"
+        }
+      ],
+      "score": 0
+    },
+    "GDPR": {
+      "name": {
+        "en": "EU GDPR",
+        "ar": "اللائحة العامة لحماية البيانات GDPR"
+      },
+      "region": "EU",
+      "controls": [
+        {
+          "id": "Art.25",
+          "label": {
+            "en": "Data protection by design and by default",
+            "ar": "حماية البيانات منذ التصميم وبشكل افتراضي"
+          },
+          "status": "issues",
+          "findings": 2,
+          "evidence": [],
+          "worst": "medium"
+        },
+        {
+          "id": "Art.32",
+          "label": {
+            "en": "Security of processing",
+            "ar": "أمن معالجة البيانات"
+          },
+          "status": "issues",
+          "findings": 8,
+          "evidence": [],
+          "worst": "critical"
+        }
+      ],
+      "score": 0
+    }
+  }
+}

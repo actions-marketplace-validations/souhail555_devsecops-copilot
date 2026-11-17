@@ -1,0 +1,70 @@
+{
+  "_note": "Indicative mapping for an MVP. Must be reviewed by a qualified compliance professional before being used as audit evidence.",
+  "frameworks": {
+    "NCA_ECC": {
+      "name": {"en": "NCA Essential Cybersecurity Controls (ECC) - KSA", "ar": "الضوابط الأساسية للأمن السيبراني (NCA ECC) - السعودية"},
+      "region": "GCC",
+      "controls": {
+        "1-6":  {"en": "Cybersecurity in IT projects (secure development)", "ar": "الأمن السيبراني ضمن إدارة مشاريع تقنية المعلومات (التطوير الآمن)"},
+        "2-2":  {"en": "Identity and access management", "ar": "إدارة هويات الدخول والصلاحيات"},
+        "2-3":  {"en": "Information system and processing facilities protection", "ar": "حماية الأنظمة وأجهزة معالجة المعلومات"},
+        "2-7":  {"en": "Data and information protection", "ar": "حماية البيانات والمعلومات"},
+        "2-8":  {"en": "Cryptography", "ar": "التشفير"},
+        "2-10": {"en": "Vulnerabilities management", "ar": "إدارة الثغرات"},
+        "2-15": {"en": "Web application security", "ar": "أمن تطبيقات الويب"},
+        "4-1":  {"en": "Third-party cybersecurity", "ar": "الأمن السيبراني المتعلق بالأطراف الخارجية"}
+      }
+    },
+    "CRA": {
+      "name": {"en": "EU Cyber Resilience Act (Regulation (EU) 2024/2847)", "ar": "قانون المرونة السيبرانية الأوروبي (CRA)"},
+      "region": "EU",
+      "controls": {
+        "AnnexI-I(2)(a)": {"en": "No known exploitable vulnerabilities", "ar": "خلو المنتج من ثغرات معروفة قابلة للاستغلال"},
+        "AnnexI-I(2)(b)": {"en": "Secure by default configuration", "ar": "إعدادات آمنة افتراضياً"},
+        "AnnexI-I(2)(d)": {"en": "Protection from unauthorised access", "ar": "الحماية من الوصول غير المصرّح به"},
+        "AnnexI-I(2)(e)": {"en": "Confidentiality of data (encryption)", "ar": "سرية البيانات (التشفير)"},
+        "AnnexI-I(2)(f)": {"en": "Integrity of data, commands and programs", "ar": "سلامة البيانات والأوامر والبرامج"},
+        "AnnexI-I(2)(j)": {"en": "Limit attack surfaces", "ar": "تقليل سطح الهجوم"},
+        "AnnexI-II(1)":   {"en": "Identify components, including an SBOM", "ar": "توثيق المكونات بما فيها قائمة المكونات البرمجية (SBOM)"},
+        "Art.13(5)":      {"en": "Due diligence on third-party components", "ar": "العناية الواجبة تجاه مكونات الأطراف الخارجية"}
+      }
+    },
+    "NIS2": {
+      "name": {"en": "EU NIS2 Directive (2022/2555)", "ar": "توجيه NIS2 الأوروبي"},
+      "region": "EU",
+      "controls": {
+        "Art.21(2)(d)": {"en": "Supply chain security", "ar": "أمن سلسلة التوريد"},
+        "Art.21(2)(e)": {"en": "Security in development and maintenance, vulnerability handling", "ar": "الأمن في التطوير والصيانة ومعالجة الثغرات"},
+        "Art.21(2)(h)": {"en": "Cryptography and encryption", "ar": "التشفير"},
+        "Art.21(2)(i)": {"en": "Access control policies", "ar": "سياسات التحكم في الوصول"}
+      }
+    },
+    "DORA": {
+      "name": {"en": "EU Digital Operational Resilience Act (2022/2554) - financial sector", "ar": "قانون المرونة التشغيلية الرقمية DORA (القطاع المالي)"},
+      "region": "EU",
+      "controls": {
+        "Art.9":  {"en": "ICT protection and prevention", "ar": "الحماية والوقاية في أنظمة تقنية المعلومات والاتصالات"},
+        "Art.28": {"en": "ICT third-party risk", "ar": "مخاطر مزوّدي الخدمات التقنية من الأطراف الخارجية"}
+      }
+    },
+    "GDPR": {
+      "name": {"en": "EU GDPR", "ar": "اللائحة العامة لحماية البيانات GDPR"},
+      "region": "EU",
+      "controls": {
+        "Art.25": {"en": "Data protection by design and by default", "ar": "حماية البيانات منذ التصميم وبشكل افتراضي"},
+        "Art.32": {"en": "Security of processing", "ar": "أمن معالجة البيانات"}
+      }
+    }
+  },
+  "mapping": {
+    "secrets":         {"NCA_ECC": ["2-2", "2-7", "1-6"], "CRA": ["AnnexI-I(2)(d)", "AnnexI-I(2)(e)"], "NIS2": ["Art.21(2)(i)", "Art.21(2)(e)"], "DORA": ["Art.9"], "GDPR": ["Art.32"]},
+    "injection":       {"NCA_ECC": ["2-15", "1-6"], "CRA": ["AnnexI-I(2)(a)", "AnnexI-I(2)(f)"], "NIS2": ["Art.21(2)(e)"], "DORA": ["Art.9"], "GDPR": ["Art.32"]},
+    "crypto":          {"NCA_ECC": ["2-8"], "CRA": ["AnnexI-I(2)(e)"], "NIS2": ["Art.21(2)(h)"], "DORA": ["Art.9"], "GDPR": ["Art.32"]},
+    "tls":             {"NCA_ECC": ["2-8", "2-7"], "CRA": ["AnnexI-I(2)(e)", "AnnexI-I(2)(f)"], "NIS2": ["Art.21(2)(h)"], "DORA": ["Art.9"], "GDPR": ["Art.32"]},
+    "config":          {"NCA_ECC": ["2-3", "1-6"], "CRA": ["AnnexI-I(2)(b)", "AnnexI-I(2)(j)"], "NIS2": ["Art.21(2)(e)"], "DORA": ["Art.9"], "GDPR": ["Art.25"]},
+    "container":       {"NCA_ECC": ["2-3"], "CRA": ["AnnexI-I(2)(b)", "AnnexI-I(2)(j)"], "NIS2": ["Art.21(2)(e)"], "DORA": ["Art.9"]},
+    "deserialization": {"NCA_ECC": ["2-15", "1-6"], "CRA": ["AnnexI-I(2)(a)", "AnnexI-I(2)(f)"], "NIS2": ["Art.21(2)(e)"], "DORA": ["Art.9"]},
+    "xss":             {"NCA_ECC": ["2-15"], "CRA": ["AnnexI-I(2)(a)", "AnnexI-I(2)(f)"], "NIS2": ["Art.21(2)(e)"], "GDPR": ["Art.32"]},
+    "supply_chain":    {"NCA_ECC": ["2-10", "4-1"], "CRA": ["AnnexI-II(1)", "Art.13(5)"], "NIS2": ["Art.21(2)(d)"], "DORA": ["Art.28"]}
+  }
+}
